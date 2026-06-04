@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FC Thunder Fan Zone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="logo">
+            <h1>⚡ FC THUNDER</h1>
+            <p>Fan Zone – Официальное сообщество</p>
+        </div>
+        <div class="user-area" id="userInfo"></div>
+        <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+
+    <div class="nav-tabs" id="navTabs" style="display: none;">
+        <button class="nav-btn" data-page="home">🏠 Главная</button>
+        <button class="nav-btn" data-page="news">📰 Новости</button>
+        <button class="nav-btn" data-page="team">👥 Команда</button>
+        <button class="nav-btn" data-page="matches">⚽ Расписание</button>
+        <button class="nav-btn" data-page="favourites">❤️ Избранное</button>
+        <button class="nav-btn" data-page="profile">👤 Профиль</button>
+        <button class="nav-btn" data-page="contacts">📞 Контакты</button>
+        <button class="nav-btn" data-page="admin" id="adminNavBtn" style="display:none;">🔧 Админка</button>
+        <button class="nav-btn" id="logoutNavBtn" style="color:#e74c3c;">🚪 Выйти</button>
+    </div>
+
+    <div class="content">
+        <!-- Страница аутентификации -->
+        <div id="authPage" class="page active-page">
+            <div id="loginFormBlock">
+                <h2>🔐 Вход в Fan Zone</h2>
+                <div class="form-group"><input type="email" id="loginEmail" placeholder="Email" required></div>
+                <div class="form-group"><input type="password" id="loginPassword" placeholder="Пароль" required></div>
+                <button id="doLoginBtn">Войти</button>
+                <div class="auth-switch">Нет аккаунта? <a id="showRegisterLink">Зарегистрироваться</a></div>
+                <div id="authError" class="error"></div>
+            </div>
+            <div id="registerFormBlock" style="display: none;">
+                <h2>📝 Регистрация</h2>
+                <div class="form-group"><input type="text" id="regName" placeholder="Имя" required></div>
+                <div class="form-group"><input type="email" id="regEmail" placeholder="Email" required></div>
+                <div class="form-group"><input type="password" id="regPassword" placeholder="Пароль (мин. 6 символов)" required></div>
+                <button id="doRegisterBtn">Зарегистрироваться</button>
+                <div class="auth-switch">Уже есть аккаунт? <a id="showLoginLink">Войти</a></div>
+                <div id="regError" class="error"></div>
+            </div>
+        </div>
+
+        <!-- Приватные страницы -->
+        <div id="homePage" class="page"><h2>⚡ Добро пожаловать на Fan Zone FC Thunder!</h2><p>Здесь вы найдёте последние новости, состав команды, расписание матчей и многое другое.</p><div id="homeLatestNews"></div></div>
+
+        <div id="newsPage" class="page">
+            <h2>📰 Все новости клуба</h2>
+            <div class="controls-bar">
+                <div class="form-group"><input type="text" id="newsSearch" placeholder="🔍 Поиск по заголовку"></div>
+                <div class="form-group"><select id="newsCategoryFilter"><option value="">Все категории</option><option value="club">Клуб</option><option value="match">Матчи</option><option value="transfers">Трансферы</option></select></div>
+                <div class="form-group"><select id="newsAuthorFilter"><option value="">Все авторы</option></select></div>
+                <div class="form-group"><select id="newsSort"><option value="date">По дате (новые сначала)</option><option value="title">По заголовку (А-Я)</option></select></div>
+                <button id="applyNewsFilters">Применить</button>
+            </div>
+            <div id="newsListContainer"></div>
+            <div class="load-more"><button id="loadMoreNews" style="display:none;">📥 Загрузить ещё</button></div>
+            <div id="newsLoading" class="spinner" style="display:none;"></div>
+        </div>
+
+        <div id="teamPage" class="page"><h2>👥 Состав команды</h2><div id="playersList" class="player-grid"></div></div>
+        <div id="matchesPage" class="page"><h2>⚽ Расписание матчей</h2><div id="matchesList" class="match-grid"></div></div>
+        <div id="favouritesPage" class="page"><h2>❤️ Избранные матчи</h2><div id="favouritesList"></div></div>
+
+        <div id="profilePage" class="page">
+            <h2>👤 Мой профиль</h2><div id="profileUserInfo"></div><hr>
+            <h3>➕ Создать новость</h3>
+            <form id="newsCreateForm">
+                <div class="form-group"><input type="text" id="newsTitle" placeholder="Заголовок" required></div>
+                <div class="form-group"><textarea id="newsContent" rows="3" placeholder="Текст" required></textarea></div>
+                <div class="form-group"><select id="newsCategory"><option value="club">Клуб</option><option value="match">Матчи</option><option value="transfers">Трансферы</option></select></div>
+                <button type="submit">Опубликовать</button>
+            </form><hr>
+            <h3>📝 Мои новости</h3><div id="myNewsList"></div>
+        </div>
+
+        <div id="contactsPage" class="page"><h2>📞 Контакты</h2><div class="contacts-info"><p><strong>Стадион:</strong> Thunder Arena, ул. Футбольная, 10</p><p><strong>Email:</strong> fan@fcthunder.com</p><p><strong>Телефон:</strong> +7 (495) 123-45-67</p><p><strong>Соцсети:</strong> @fcthunder (Telegram, VK, Twitter)</p></div></div>
+        <div id="adminPage" class="page"><h2>🔧 Администрирование</h2><div id="adminPanel"></div></div>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
